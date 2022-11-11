@@ -1,0 +1,22 @@
+extension String {
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return nil }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return nil
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
+    func calculateHeight() -> CGFloat {
+        //let messageString = inString
+        let attributes : [NSAttributedString.Key : Any] = [NSAttributedString.Key(rawValue:
+        NSAttributedString.Key.font.rawValue) : UIFont.systemFont(ofSize: 15.0)]
+        let attributedString : NSAttributedString = NSAttributedString(string: self, attributes: attributes)
+        let rect : CGRect = attributedString.boundingRect(with: CGSize(width: 222.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        let requredSize:CGRect = rect
+        return requredSize.height
+    }
+}
